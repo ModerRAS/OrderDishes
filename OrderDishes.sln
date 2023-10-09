@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes", "OrderDishes\OrderDishes.csproj", "{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4057214-BE27-4911-94F0-6A67A320CA2D}
+	EndGlobalSection
+EndGlobal
