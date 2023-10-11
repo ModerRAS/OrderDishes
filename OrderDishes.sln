@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes", "OrderDishes\OrderDishes.csproj", "{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderDishes", "OrderDishes\OrderDishes.csproj", "{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{3EC42155-AA32-4419-96E8-020FD92FAF0D}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes.Test", "OrderDishes.Test\OrderDishes.Test.csproj", "{732E8761-DBD8-4228-BA5B-168BB0FDC522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF7F4B23-7475-4A07-9A83-B7CB8CE5338B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{732E8761-DBD8-4228-BA5B-168BB0FDC522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{732E8761-DBD8-4228-BA5B-168BB0FDC522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{732E8761-DBD8-4228-BA5B-168BB0FDC522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{732E8761-DBD8-4228-BA5B-168BB0FDC522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
