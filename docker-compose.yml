@@ -1,0 +1,14 @@
+version: '3'
+services:
+  tgsb:
+    image: moderras/orderdishes:latest
+    env_file: .env
+    volumes:
+      - /tmp/orderdishes:/tmp
+      - ./db:/data/
+    depends_on:
+      - redis
+    restart: always
+  redis:
+    image: redis
+    restart: always
