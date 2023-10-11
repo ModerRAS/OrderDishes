@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-focal
+    runs-on: debian-bookworm
 
     steps:
     - uses: actions/checkout@v3
