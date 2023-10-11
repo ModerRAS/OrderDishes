@@ -1,8 +1,10 @@
 version: '3'
 services:
-  tgsb:
+  orderdishes:
     image: moderras/orderdishes:latest
     env_file: .env
+    ports:
+      - 80:80
     volumes:
       - /tmp/orderdishes:/tmp
       - ./db:/data/
