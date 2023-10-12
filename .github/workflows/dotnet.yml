@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: debian-bookworm
+    runs-on: ubuntu-latest-4-cores
 
     steps:
     - name: Get current date
