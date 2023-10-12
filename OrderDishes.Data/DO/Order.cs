@@ -2,8 +2,8 @@
     public class Order {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public List<Guid> Breakfast { get; set; }
-        public List<Guid> Lunch { get; set; }
-        public List<Guid> Dinner { get; set; }
+        public Guid Canteen {  get; set; }
+        public MenuTime MenuTime { get; set; }
+        public List<Guid> Dishes { get; set; }
     }
 }

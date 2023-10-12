@@ -1,10 +1,15 @@
 ﻿using OrderDishes.Data.DO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OrderDishes.Data.DTO {
-    public class Menu {
+    public class TotalOrder {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public MenuTime Time { get; set; }
-        public List<Food> Foods { get; set; }
+
     }
 }
