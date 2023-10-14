@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSRedisCore" Version="3.8.671" />
+  </ItemGroup>
+
 </Project>

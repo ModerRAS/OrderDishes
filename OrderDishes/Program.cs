@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Distributed;
 using OrderDishes.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMasaBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-
+var csredis = new CSRedis.CSRedisClient("127.0.0.1:6379");
+RedisHelper.Initialization(csredis);
+builder.Services.AddSingleton<IDistributedCache>(new Microsoft.Extensions.Caching.Redis.CSRedisCache(RedisHelper.Instance));
+builder.Services.AddSingleton(csredis);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
