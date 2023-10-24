@@ -1,0 +1,40 @@
+﻿@page "/login"
+@layout MainLayout
+
+
+<MTextField @bind-Value="Username"
+            Label="用户名"
+            Clearable>
+</MTextField>
+<div class="text-center">
+    <MButton class="ma-2"
+             Color="info"
+             OnClick="UserLoginClick">
+        <ChildContent>
+            用户登录
+        </ChildContent>
+    </MButton>
+    <MButton class="ma-2"
+             Color="info"
+             OnClick="CanteenLoginClick">
+        <ChildContent>
+            食堂登录
+        </ChildContent>
+    </MButton>
+    <MButton class="ma-2"
+             Color="info"
+             Href="/register">
+        <ChildContent>
+            注册
+        </ChildContent>
+    </MButton>
+</div>
+@code {
+    public string Username { get; set; }
+    public void UserLoginClick() {
+
+    }
+    public void CanteenLoginClick() {
+        
+    }
+}

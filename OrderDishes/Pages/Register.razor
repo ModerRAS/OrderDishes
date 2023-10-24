@@ -1,0 +1,32 @@
+﻿@page "/register"
+
+<MTextField @bind-Value="Username"
+            Label="用户名"
+            Clearable>
+</MTextField>
+<MTextField @bind-Value="InvitationCode"
+            Label="邀请码"
+            Clearable>
+</MTextField>
+<div class="text-center">
+    <MButton class="ma-2"
+             Loading="loading"
+             Disabled="loading"
+             Color="info"
+             OnClick="RegisterClick">
+        <LoaderContent>
+            <span class="custom-loader"><MIcon>mdi-cached</MIcon></span>
+        </LoaderContent>
+        <ChildContent>
+            注册
+        </ChildContent>
+    </MButton>
+</div>
+@code {
+    public string Username { get; set; }
+    public string InvitationCode { get; set; }
+    private bool loading { get; set; }
+    public void RegisterClick() {
+
+    }
+}
