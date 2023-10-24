@@ -1,0 +1,39 @@
+﻿@page "/order"
+@layout MainLayout
+@using OrderDishes.Pages.Component;
+
+<MContainer Class="grey lighten-5">
+    <MRow>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 @bind-Selected="@test" />
+        </MCol>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 Selected=true />
+        </MCol>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 Selected=true />
+        </MCol>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 Selected=true />
+        </MCol>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 Selected=true />
+        </MCol>
+        <MCol Cols="12"
+              Sm="4">
+            <Food FoodName="青菜" Price=2 Selected=true />
+        </MCol>
+    </MRow>
+</MContainer>
+<div>
+    @test
+</div>
+
+@code {
+    public bool test { get; set; }
+}
