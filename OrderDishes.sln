@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes.Test", "OrderDishes.Test\OrderDishes.Test.csproj", "{732E8761-DBD8-4228-BA5B-168BB0FDC522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderDishes.Test", "OrderDishes.Test\OrderDishes.Test.csproj", "{732E8761-DBD8-4228-BA5B-168BB0FDC522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes.Common", "OrderDishes.Common\OrderDishes.Common.csproj", "{DE24D956-FA01-443C-BF85-5A9B75CB2477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderDishes.Common", "OrderDishes.Common\OrderDishes.Common.csproj", "{DE24D956-FA01-443C-BF85-5A9B75CB2477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderDishes.Data", "OrderDishes.Data\OrderDishes.Data.csproj", "{53C55EC4-5B10-468D-B818-CFD7290CEE61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderDishes.Data", "OrderDishes.Data\OrderDishes.Data.csproj", "{53C55EC4-5B10-468D-B818-CFD7290CEE61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
