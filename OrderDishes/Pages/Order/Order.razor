@@ -1,39 +1,64 @@
 ﻿@page "/order"
 @layout MainLayout
+@using OrderDishes.Data.DO;
 @using OrderDishes.Pages.Component;
 
 <MContainer Class="grey lighten-5">
     <MRow>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 @bind-Selected="@test" />
-        </MCol>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 Selected=true />
-        </MCol>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 Selected=true />
-        </MCol>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 Selected=true />
-        </MCol>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 Selected=true />
-        </MCol>
-        <MCol Cols="12"
-              Sm="4">
-            <Food FoodName="青菜" Price=2 Selected=true />
-        </MCol>
+        @foreach(var e in Foods) {
+            <MCol Cols="12"
+                  Sm="4">
+                <FoodComponent Food=e @bind-Selected="@Selecteds[e.Id]" />
+            </MCol>
+        }
     </MRow>
 </MContainer>
 <div>
-    @test
+    @foreach(var e in Selecteds) {
+        <p>@e.Key</p>
+        <p>@e.Value</p>
+    }
 </div>
 
 @code {
     public bool test { get; set; }
+    public Dictionary<Guid, bool> Selecteds { get; set; } = new Dictionary<Guid, bool>();
+    public List<Food> Foods = new List<Food>() {
+        new Food() {
+            Id = Guid.NewGuid(),
+            Name = "白菜",
+            Price = 2,
+            Tags = new List<string>() {"辣的", "酸的"}
+        },
+        new Food() {
+            Id = Guid.NewGuid(),
+            Name = "酸菜",
+            Price = 2,
+            Tags = new List<string>()
+        },
+        new Food() {
+            Id = Guid.NewGuid(),
+            Name = "酸菜",
+            Price = 2,
+            Tags = new List<string>()
+        },
+        new Food() {
+            Id = Guid.NewGuid(),
+            Name = "酸菜",
+            Price = 2,
+            Tags = new List<string>()
+        },
+        new Food() {
+            Id = Guid.NewGuid(),
+            Name = "白菜",
+            Price = 2,
+            Tags = new List<string>() {"辣的", "酸的"}
+        }
+    };
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        foreach(var food in Foods) {
+            Selecteds.Add(food.Id, false);
+        }
+    }
 }
