@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Utility\" />
+    <PackageReference Include="CSRedisCore" Version="3.8.671" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.8.671" />
+    <ProjectReference Include="..\OrderDishes.Data\OrderDishes.Data.csproj" />
   </ItemGroup>
 
 </Project>

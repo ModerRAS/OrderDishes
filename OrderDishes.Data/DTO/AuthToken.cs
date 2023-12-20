@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrderDishes.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace OrderDishes.Data.DTO {
     public class AuthToken {
         public Guid Guid { get; set; }
         public string Name { get; set; }
+        public UserType UserType { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime ExpirationTime { get; set; }
 
