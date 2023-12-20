@@ -3,31 +3,54 @@
 @using OrderDishes.Data.DO;
 @using OrderDishes.Pages.Component;
 
-<MContainer Class="grey lighten-5">
+<MContainer Class="lighten-5">
     <MRow>
         @foreach(var e in Foods) {
-            <MCol Cols="12"
-                  Sm="4">
-                <FoodComponent Food=e @bind-Selected="@Selecteds[e.Id]" />
-            </MCol>
+            <MHover>
+                <MCol Cols="12"
+                      Sm="4">
+                    <FoodComponent Food=e @bind-Selected="@Selecteds[e.Id]" />
+                </MCol>
+            </MHover>
         }
     </MRow>
+    <MBottomNavigation Class="float-end" @bind-Value="NavigationValue"
+                       Color="teal"
+                              Grow>
+        <MButton>
+            <span>@TotalPrice 元</span>
+
+            <MIcon>mdi-cart</MIcon>
+        </MButton>
+
+        <MButton>
+            <span>下单</span>
+
+            <MIcon>mdi-cash</MIcon>
+        </MButton>
+    </MBottomNavigation>
 </MContainer>
-<div>
-    @foreach(var e in Selecteds) {
-        <p>@e.Key</p>
-        <p>@e.Value</p>
-    }
-</div>
+
 
 @code {
     public bool test { get; set; }
     public Dictionary<Guid, bool> Selecteds { get; set; } = new Dictionary<Guid, bool>();
+    public decimal TotalPrice { get {
+            decimal total = 0;
+            foreach (var e in Foods) {
+                if (Selecteds[e.Id]) {
+                    total += e.Price;
+                }
+            }
+            return total;
+        }
+    }
+    StringNumber NavigationValue = 2;
     public List<Food> Foods = new List<Food>() {
         new Food() {
             Id = Guid.NewGuid(),
             Name = "白菜",
-            Price = 2,
+            Price = 2.3M,
             Tags = new List<string>() {"辣的", "酸的"}
         },
         new Food() {
