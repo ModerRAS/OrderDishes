@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderDishes.Data.DO {
-    public enum  MenuTime {
+namespace OrderDishes.Data.Enums {
+    public enum MenuTime {
         Breakfast,
         Lunch,
         Dinner,

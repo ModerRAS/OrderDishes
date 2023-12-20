@@ -1,4 +1,6 @@
-﻿namespace OrderDishes.Data.DO {
+﻿using OrderDishes.Data.Enums;
+
+namespace OrderDishes.Data.DO {
     public class Order {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -1,4 +1,5 @@
 ﻿using OrderDishes.Data.DO;
+using OrderDishes.Data.Enums;
 
 namespace OrderDishes.Data.DTO {
     public class Menu {
