@@ -1,5 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 
+RUN sed -i 's/http:\/\/deb.debian.org/https:\/\/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+
 RUN apt update -y && \
     apt install -y fontconfig && \
     apt-get install -y --allow-unauthenticated \
