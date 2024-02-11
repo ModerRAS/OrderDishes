@@ -4,7 +4,7 @@ services:
     image: moderras/orderdishes:latest
     env_file: .env
     ports:
-      - 80:80
+      - 65323:80
     volumes:
       - /tmp/orderdishes:/tmp
       - ./db:/data/
@@ -12,5 +12,8 @@ services:
       - redis
     restart: always
   redis:
-    image: redis
+    image: bitnami/redis:latest
     restart: always
+    env_file: .env
+    volumes:
+      - ./redis:/bitnami/redis/data
