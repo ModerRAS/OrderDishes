@@ -1,24 +1,26 @@
 ﻿@page "/login"
+@using Microsoft.Extensions.Caching.Distributed
+@using Newtonsoft.Json
+@using OrderDishes.Data.DO
+@using OrderDishes.Data.DTO
 @layout MainLayout
 
+@inject IDistributedCache Cache
+@inject ILogger<Login> Logger
+@inject NavigationManager Manager
+@inject UserSession Session
 
 <MTextField @bind-Value="Username"
             Label="用户名"
             Clearable>
 </MTextField>
+
 <div class="text-center">
     <MButton class="ma-2"
              Color="info"
              OnClick="UserLoginClick">
         <ChildContent>
-            用户登录
-        </ChildContent>
-    </MButton>
-    <MButton class="ma-2"
-             Color="info"
-             OnClick="CanteenLoginClick">
-        <ChildContent>
-            食堂登录
+            登录
         </ChildContent>
     </MButton>
     <MButton class="ma-2"
@@ -29,12 +31,47 @@
         </ChildContent>
     </MButton>
 </div>
-@code {
-    public string Username { get; set; }
-    public void UserLoginClick() {
+<PopupComponent 
+    @bind-Dialog=@dialog
+    Callback=@Callback
+    Text=@Text
+    Color=@Color
+    />
+ @code {
+    public bool dialog;
+    public Action Callback = () => { };
+    public string Text;
+    public string Color = "green";
 
-    }
-    public void CanteenLoginClick() {
-        
+    public string Username { get; set; }
+
+    private bool loading { get; set; }
+    public async Task UserLoginClick() {
+        var UserListJson = await Cache.GetStringAsync("UserList");
+        var UserListData = JsonConvert.DeserializeObject<UserList>(UserListJson);
+
+        var CanteenListJson = await Cache.GetStringAsync("CanteenList");
+        var CanteenListData = JsonConvert.DeserializeObject<CanteenList>(CanteenListJson);
+        Text = $"用户 {Username} 登录成功";
+        if (UserListData.Users.Contains(Username)) {
+            Session.UserName = Username;
+            Logger.LogInformation($"User {Username} has logged in");
+            Session.UserType = Data.Enums.UserType.User;
+            Color = "green";
+            dialog = true;
+        } else if (CanteenListData.Canteens.Contains(Username)) {
+            Session.UserName = Username;
+            Session.UserType = Data.Enums.UserType.Canteen;
+            Logger.LogInformation($"Canteen {Username} has logged in");
+            Color = "green";
+            dialog = true;
+        } else {
+            Logger.LogInformation($"Invalid User {Username}");
+            Text = $"用户 {Username} 不存在";
+            Color = "red";
+            dialog = true;
+            // FailDialogText = $"用户 {Username} 不存在";
+            // FailDialog = true;
+        }
     }
 }

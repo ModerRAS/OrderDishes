@@ -2,6 +2,7 @@
 @using Microsoft.Extensions.Caching.Distributed
 @using Newtonsoft.Json
 @using OrderDishes.Data.DO
+@using OrderDishes.Pages.Component
 @inject IDistributedCache Cache
 @inject ILogger<Register> Logger
 @inject NavigationManager Manager
@@ -59,7 +60,7 @@
      </ChildContent>
  </MDialog>
  @code {
-    bool dialog;
+    private bool dialog;
     public string Username { get; set; }
     public string InvitationCode { get; set; }
     private bool loading { get; set; }
@@ -67,8 +68,10 @@
         if (string.IsNullOrWhiteSpace(Username)) {
             return;
         }
-        var code = await Cache.GetStringAsync("InvitationCode");
-        if (InvitationCode.Equals(code)) {
+        var ic = new InvitationCode() { UserInvitationCode = "yonghu", CanteenInvitationCode = "canting" };
+        await Cache.SetStringAsync("InvitationCode", JsonConvert.SerializeObject(ic));
+        var code = JsonConvert.DeserializeObject<InvitationCode>(await Cache.GetStringAsync("InvitationCode"));
+        if (InvitationCode.Equals(code.UserInvitationCode)) {
             var UserListJson = await Cache.GetStringAsync("UserList");
             UserList UserListData;
             if (string.IsNullOrWhiteSpace(UserListJson)) {
@@ -81,6 +84,22 @@
             await Cache.SetStringAsync("UserList", UserListJson);
             Logger.LogInformation($"Create User: {Username}");
             dialog = true;
+        } else if (InvitationCode.Equals(code.CanteenInvitationCode)) {
+            var CanteenListJson = await Cache.GetStringAsync("CanteenList");
+            CanteenList CanteenListData;
+            if (string.IsNullOrWhiteSpace(CanteenListJson)) {
+                CanteenListData = new CanteenList() { Canteens = new HashSet<string>() };
+            } else {
+                CanteenListData = JsonConvert.DeserializeObject<CanteenList>(CanteenListJson);
+            }
+            CanteenListData.Canteens.Add(Username);
+            CanteenListJson = JsonConvert.SerializeObject(CanteenListData);
+            await Cache.SetStringAsync("CanteenList", CanteenListJson);
+            Logger.LogInformation($"Create Canteen: {Username}");
+            dialog = true;
+        } else {
+            Logger.LogInformation($"Failed To Create User: {Username}");
+            Logger.LogInformation($"InvitationCode Not Matched: {InvitationCode}");
         }
     }
     public void JumpToLogin() {

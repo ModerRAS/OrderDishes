@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace OrderDishes.Data.DO {
     public class CanteenList {
-        public required List<string> Canteens { get; set; }
+        public required HashSet<string> Canteens { get; set; }
     }
 }
