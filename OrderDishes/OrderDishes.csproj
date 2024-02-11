@@ -18,6 +18,7 @@
     <PackageReference Include="Caching.CSRedis" Version="3.8.671" />
     <PackageReference Include="CSRedisCore" Version="3.8.671" />
     <PackageReference Include="Masa.Blazor" Version="1.0.2" />
+    <PackageReference Include="NReco.Logging.File" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

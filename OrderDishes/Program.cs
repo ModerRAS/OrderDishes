@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Caching.Distributed;
 using OrderDishes.Data;
 using OrderDishes.Data.DTO;
+using NReco.Logging.File;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,29 @@ var csredis = new CSRedis.CSRedisClient("127.0.0.1:6379");
 RedisHelper.Initialization(csredis);
 builder.Services.AddSingleton<IDistributedCache>(new Microsoft.Extensions.Caching.Redis.CSRedisCache(RedisHelper.Instance));
 builder.Services.AddSingleton(csredis);
+
+
+builder.Services.AddLogging(loggingBuilder => {
+    if (!Directory.Exists("logs")) {
+        Directory.CreateDirectory("logs");
+    }
+    loggingBuilder.AddFile("logs/OrderDishes_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts => {
+        fileLoggerOpts.FormatLogFileName = fName => {
+            return String.Format(fName, DateTime.UtcNow);
+        };
+        fileLoggerOpts.FormatLogEntry = (msg) => {
+            var log = new LogJson() { 
+                DateTime = DateTime.Now.ToString("o"),
+                LogLevel = msg.LogLevel.ToString(),
+                LogName = msg.LogName,
+                EventId = msg.EventId.Id,
+                Message = msg.Message,
+                Exception = msg.Exception?.ToString(),
+            };
+            return JsonConvert.SerializeObject(log, Formatting.None);
+        };
+    });
+});
 //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 var app = builder.Build();
 
