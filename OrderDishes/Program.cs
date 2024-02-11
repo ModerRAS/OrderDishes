@@ -13,7 +13,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddMasaBlazor();
 builder.Services.AddScoped<WeatherForecastService>();
 builder.Services.AddScoped<UserSession>();
-var csredis = new CSRedis.CSRedisClient("127.0.0.1:6379");
+var csredis = new CSRedis.CSRedisClient("redis:6379");
 RedisHelper.Initialization(csredis);
 builder.Services.AddSingleton<IDistributedCache>(new Microsoft.Extensions.Caching.Redis.CSRedisCache(RedisHelper.Instance));
 builder.Services.AddSingleton(csredis);
@@ -25,7 +25,7 @@ builder.Services.AddLogging(loggingBuilder => {
     }
     loggingBuilder.AddFile("logs/OrderDishes_{0:yyyy}-{0:MM}-{0:dd}.log", fileLoggerOpts => {
         fileLoggerOpts.FormatLogFileName = fName => {
-            return String.Format(fName, DateTime.UtcNow);
+            return string.Format(fName, DateTime.UtcNow);
         };
         fileLoggerOpts.FormatLogEntry = (msg) => {
             var log = new LogJson() { 
