@@ -1,6 +1,9 @@
 ﻿using OrderDishes.Data.Enums;
 
 namespace OrderDishes.Data.DO {
+    /// <summary>
+    /// 存储每顿饭每个人的点菜内容
+    /// </summary>
     public class Order {
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
