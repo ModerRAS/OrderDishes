@@ -1,0 +1,49 @@
+﻿
+<MDialog @bind-Value="Dialog"
+         Persistent
+         Width="500">
+    <ActivatorContent>
+
+    </ActivatorContent>
+
+    <ChildContent>
+        <MCard>
+            <MCardTitle Class=@StyleClassName>
+                提示
+            </MCardTitle>
+
+            <MCardText>
+                @Text
+            </MCardText>
+
+            <MDivider></MDivider>
+
+            <MCardActions>
+                <MSpacer></MSpacer>
+                <MButton Color="primary"
+                          Text
+                          OnClick="OnClick">
+                     确定
+                 </MButton>
+             </MCardActions>
+         </MCard>
+     </ChildContent>
+ </MDialog>
+ @code {
+    [Parameter]
+    public bool Dialog { get; set; } = false;
+    [Parameter]
+    public EventCallback<bool> DialogChanged { get; set; }
+    [Parameter]
+    public string Color { get; set; } = "green";
+    public string StyleClassName { get => $"text-h5 {Color} lighten-2"; }
+    [Parameter]
+    public required string Text { get; set; }
+    [Parameter]
+    public required Action Callback { get; set; }
+    public async Task OnClick() {
+        Callback();
+        Dialog = false;
+        await DialogChanged.InvokeAsync(Dialog);
+    }
+}
