@@ -17,7 +17,7 @@
     public async Task Run() {
         if (string.IsNullOrEmpty(Session.UserName)) {
             Text = "请先登录";
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             Manager.NavigateTo("/login", true);
         }
 
