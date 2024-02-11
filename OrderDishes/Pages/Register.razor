@@ -1,4 +1,10 @@
 ﻿@page "/register"
+@using Microsoft.Extensions.Caching.Distributed
+@using Newtonsoft.Json
+@using OrderDishes.Data.DO
+@inject IDistributedCache Cache
+@inject ILogger<Register> Logger
+@inject NavigationManager Manager
 
 <MTextField @bind-Value="Username"
             Label="用户名"
@@ -8,25 +14,77 @@
             Label="邀请码"
             Clearable>
 </MTextField>
-<div class="text-center">
-    <MButton class="ma-2"
-             Loading="loading"
-             Disabled="loading"
-             Color="info"
-             OnClick="RegisterClick">
-        <LoaderContent>
-            <span class="custom-loader"><MIcon>mdi-cached</MIcon></span>
-        </LoaderContent>
-        <ChildContent>
-            注册
-        </ChildContent>
-    </MButton>
-</div>
-@code {
+
+
+<MDialog @bind-Value="dialog"
+         Width="500">
+    <ActivatorContent>
+         <div class="text-center">
+             <MButton class="ma-2"
+                      Loading="loading"
+                      Disabled="loading"
+                      Color="info"
+                      OnClick="RegisterClick">
+                <LoaderContent>
+                    <span class="custom-loader"><MIcon>mdi-cached</MIcon></span>
+                </LoaderContent>
+                <ChildContent>
+                    注册
+                </ChildContent>
+             </MButton>
+         </div>
+     </ActivatorContent>
+
+     <ChildContent>
+         <MCard>
+            <MCardTitle Class="text-h5 green lighten-2">
+                提示
+            </MCardTitle>
+
+            <MCardText>
+                用户 @Username 创建成功
+            </MCardText>
+
+            <MDivider></MDivider>
+
+            <MCardActions>
+                <MSpacer></MSpacer>
+                <MButton Color="primary"
+                          Text
+                          OnClick="JumpToLogin">
+                     确定
+                 </MButton>
+             </MCardActions>
+         </MCard>
+     </ChildContent>
+ </MDialog>
+ @code {
+    bool dialog;
     public string Username { get; set; }
     public string InvitationCode { get; set; }
     private bool loading { get; set; }
-    public void RegisterClick() {
-
+    public async void RegisterClick() {
+        if (string.IsNullOrWhiteSpace(Username)) {
+            return;
+        }
+        var code = await Cache.GetStringAsync("InvitationCode");
+        if (InvitationCode.Equals(code)) {
+            var UserListJson = await Cache.GetStringAsync("UserList");
+            UserList UserListData;
+            if (string.IsNullOrWhiteSpace(UserListJson)) {
+                UserListData = new UserList() { Users = new HashSet<string>()};
+            } else {
+                UserListData = JsonConvert.DeserializeObject<UserList>(UserListJson);
+            }
+            UserListData.Users.Add(Username);
+            UserListJson = JsonConvert.SerializeObject(UserListData);
+            await Cache.SetStringAsync("UserList", UserListJson);
+            Logger.LogInformation($"Create User: {Username}");
+            dialog = true;
+        }
+    }
+    public void JumpToLogin() {
+        dialog = false; 
+        Manager.NavigateTo("/login", true);
     }
 }
