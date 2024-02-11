@@ -1,9 +1,25 @@
 ﻿@page "/"
+@using OrderDishes.Data.DTO
+@inject NavigationManager Manager
+
+@inject UserSession Session
 
 <PageTitle>Index</PageTitle>
+<div>
+    @Text
+</div>
+@code {
+    public string Text { get; set; } = string.Empty;
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        Run();
+    }
+    public async Task Run() {
+        if (string.IsNullOrEmpty(Session.UserName)) {
+            Text = "请先登录";
+            await Task.Delay(2000);
+            Manager.NavigateTo("/login", true);
+        }
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="This is fire-new Blazor UI!" />
+    }
+}
