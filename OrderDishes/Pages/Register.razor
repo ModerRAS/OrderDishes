@@ -1,9 +1,10 @@
 ﻿@page "/register"
+@using Garnet.client
 @using Microsoft.Extensions.Caching.Distributed
 @using Newtonsoft.Json
 @using OrderDishes.Data.DO
 @using OrderDishes.Pages.Component
-@inject IDistributedCache Cache
+@inject GarnetClient Cache
 @inject ILogger<Register> Logger
 @inject NavigationManager Manager
 
@@ -59,7 +60,7 @@
          </MCard>
      </ChildContent>
  </MDialog>
- @code {
+@code {
     private bool dialog;
     public string Username { get; set; }
     public string InvitationCode { get; set; }
@@ -69,10 +70,10 @@
             return;
         }
         var ic = new InvitationCode() { UserInvitationCode = "yonghu", CanteenInvitationCode = "canting" };
-        await Cache.SetStringAsync("InvitationCode", JsonConvert.SerializeObject(ic));
-        var code = JsonConvert.DeserializeObject<InvitationCode>(await Cache.GetStringAsync("InvitationCode"));
+        await Cache.StringSetAsync("InvitationCode", JsonConvert.SerializeObject(ic));
+        var code = JsonConvert.DeserializeObject<InvitationCode>(await Cache.StringGetAsync("InvitationCode"));
         if (InvitationCode.Equals(code.UserInvitationCode)) {
-            var UserListJson = await Cache.GetStringAsync("UserList");
+            var UserListJson = await Cache.StringGetAsync("UserList");
             UserList UserListData;
             if (string.IsNullOrWhiteSpace(UserListJson)) {
                 UserListData = new UserList() { Users = new HashSet<string>()};
@@ -81,11 +82,11 @@
             }
             UserListData.Users.Add(Username);
             UserListJson = JsonConvert.SerializeObject(UserListData);
-            await Cache.SetStringAsync("UserList", UserListJson);
+            await Cache.StringSetAsync("UserList", UserListJson);
             Logger.LogInformation($"Create User: {Username}");
             dialog = true;
         } else if (InvitationCode.Equals(code.CanteenInvitationCode)) {
-            var CanteenListJson = await Cache.GetStringAsync("CanteenList");
+            var CanteenListJson = await Cache.StringGetAsync("CanteenList");
             CanteenList CanteenListData;
             if (string.IsNullOrWhiteSpace(CanteenListJson)) {
                 CanteenListData = new CanteenList() { Canteens = new HashSet<string>() };
@@ -94,7 +95,8 @@
             }
             CanteenListData.Canteens.Add(Username);
             CanteenListJson = JsonConvert.SerializeObject(CanteenListData);
-            await Cache.SetStringAsync("CanteenList", CanteenListJson);
+            await Cache.StringSetAsync("CanteenList", CanteenListJson);
+            await Cache.Save();
             Logger.LogInformation($"Create Canteen: {Username}");
             dialog = true;
         } else {
